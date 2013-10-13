@@ -1,0 +1,21 @@
+body {
+	margin-left: 5%;
+	margin-right: 5%;
+	background-color: #1B1B1B;
+	font-family: "Calibri";
+	color: #AAA;
+}
+
+hr {
+	border: 1px dotted #333333;
+	color: #333333;
+	background-color: #333333;
+	margin-right: 10%;
+}
+
+a {
+	color: #1794CF;
+}
+	a:visited {
+		color: #9600B8;
+	}
