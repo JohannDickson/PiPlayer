@@ -6,13 +6,17 @@ $resource = $_REQUEST['resource'];
 switch($command){
 	case "play":
 		$cmd = 'omxplayer -o hdmi "'.$resource.'"';
-		exec($cmd);
+		shell_exec($cmd." < omxFifo &");
+		shell_exec("sleep 1; echo -n . > omxFifo &");
+		break;
+
+	case "pause":
+		shell_exec("echo -n \"p\" > omxFifo");
 		break;
 
 	case "stop":
-		$out = shell_exec("ps aux |grep omxplayer.bin |grep -v grep").trim();
-		$vars = preg_split("/\s+/", $out);
-		echo shell_exec("kill ".$vars[1]);
+		shell_exec("echo -n \"q\" > omxFifo");
 		break;
 }
+
 ?>

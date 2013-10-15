@@ -1,1 +1,3 @@
 Launch videos on your Raspberry Pi from a web browser
+
+Don't forget to create a named pipe to use in the PHP!

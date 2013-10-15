@@ -20,12 +20,12 @@
 			});
 		}
 
-		function omxStop(){
+		function omxCmd(cmd){
 			$.ajax("omx.php",
 			{
 				type: "POST",
 				data: {
-					command: "stop"
+					command: cmd
 				}
 			});
 		}
@@ -35,7 +35,10 @@
 <body>
 	<h1>Raspberry Player</h1>
 
-	<a href="#omxStop" onclick="omxStop()">Stop playing</a>
+	<a href="#omxInfo" onclick="omxCmd('info')">Info</a><br />
+	<br />
+	<a href="#omxPause" onclick="omxCmd('pause')">Pause</a><br />
+	<a href="#omxStop" onclick="omxCmd('stop')">Stop playing</a>
 
 	<hr />
 
