@@ -35,10 +35,17 @@
 <body>
 	<h1>Raspberry Player</h1>
 
-	<a href="#omxInfo" onclick="omxCmd('info')">Info</a><br />
-	<br />
 	<a href="#omxPause" onclick="omxCmd('pause')">Pause</a><br />
 	<a href="#omxStop" onclick="omxCmd('stop')">Stop playing</a>
+	<br />
+	<a href="#omxVol-" onclick="omxCmd('vol-')">vol-</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="#omxVol+" onclick="omxCmd('vol+')">vol+</a>
+	<br />
+	<a href="#omxT-30" onclick="omxCmd('t-30')">t-30</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="#omxT+30" onclick="omxCmd('t+30')">t+30</a>
+	<br />
+	<a href="#omxT-600" onclick="omxCmd('t-600')">t-600</a>&nbsp;&nbsp;&nbsp;&nbsp;
+	<a href="#omxT+600" onclick="omxCmd('t+600')">t+600</a>
 
 	<hr />
 
