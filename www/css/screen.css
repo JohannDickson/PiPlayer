@@ -1,6 +1,5 @@
 body {
-	margin-left: 5%;
-	margin-right: 5%;
+	padding-top: 40px;
 	background-color: #1B1B1B;
 	font-family: "Calibri";
 	color: #AAA;
@@ -19,3 +18,34 @@ a {
 	a:visited {
 		color: #9600B8;
 	}
+
+#omxControls {
+	top: 0;
+	left: 0;
+	right: 0;
+	width: 100%;
+	padding-top: 20px;
+	padding-bottom: 5px;
+	padding-left: 5%;
+	position: fixed;
+	background-color: #1B1B1B;
+	border-bottom: 1px solid #333333;
+}
+
+#content {
+	margin-left: 5%;
+	margin-right: 5%;
+}
+
+.omxCmd {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+.vertCenter {
+	vertical-align: middle;
+}
+
+.invert {
+	-webkit-filter: invert(100%);
+}
