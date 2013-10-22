@@ -3,11 +3,20 @@
 $command = $_REQUEST['command'];
 $resource = $_REQUEST['resource'];
 
+$hdmi = true;
+
 switch($command){
 	case "play":
-		$cmd = 'omxplayer -o hdmi "'.$resource.'"';
-		exec($cmd." < omxFifo &");
-		exec("sleep 1; echo -n . > omxFifo");
+		exec('pgrep omxplayer.bin', $pid);
+		if ( empty($pid) ) {
+			$opts = ($hdmi?"-o hdmi":'');
+			$cmd = "omxplayer $opts \"$resource\" < omxFifo &";
+			$launchPlayer = "sleep 1 && echo -n . > omxFifo &";
+			exec($cmd." ".$launchPlayer);
+			echo "playing: ".$resource;
+		} else {
+			echo "omxplayer is already runnning (".$pid[0].")";
+		}
 		break;
 
 	case "pause":
