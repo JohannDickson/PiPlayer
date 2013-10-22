@@ -85,7 +85,7 @@
 			echo "<p><h3>$path</h3>";
 			foreach ($files as $file) {
 				$filePath = $videoRoot.$path."/".$file;
-				echo "<a href=\"#$file\" onclick=\"omxPlay('".$filePath."')\">$file</a><br />";
+				echo "<a href=\"#$file\" onclick=\"omxPlay('".addslashes($filePath)."')\">$file</a><br />";
 			}
 			echo "</p>";
 		}
