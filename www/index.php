@@ -24,6 +24,7 @@ function list_files($tree){
 			}
 		} else {
 			echo "<li class=\"directory\">".
+				  "<span onclick=\"toggleChildren($(this).parent())\"><u>+</u></span>&nbsp;".
 				  (($key == $base_dir)?'/':"<b>${key}</b>");
 
 			$indent++;
@@ -67,6 +68,19 @@ function list_files($tree){
 				data: {
 					command: cmd
 				}
+			});
+		}
+
+		function toggleChildren(obj){
+			console.log(obj);
+			$(obj).children("ul").each(function(){
+				console.log($(this).css('display'));
+				if ($(this).css('display') == 'none'){
+					$(this).css('display','');
+				} else {
+					$(this).css('display', 'none');
+				}
+				console.log($(this));
 			});
 		}
 	</script>
