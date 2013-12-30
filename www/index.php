@@ -49,28 +49,8 @@ function list_files($tree){
 	<title>Raspberry Player</title>
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript" src="/js/omx.js"></script>
 	<script type="text/javascript">
-		function omxPlay(resource){
-			$.ajax("omx.php",
-			{
-				type: "POST",
-				data: {
-					command: "play",
-					resource: resource
-				}
-			});
-		}
-
-		function omxCmd(cmd){
-			$.ajax("omx.php",
-			{
-				type: "POST",
-				data: {
-					command: cmd
-				}
-			});
-		}
-
 		function toggleChildren(obj){
 			console.log(obj);
 			$(obj).children("ul").each(function(){
