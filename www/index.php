@@ -1,3 +1,40 @@
+<?php
+
+$videoRoot = "/home/user/Public/Videos";
+$db = "./db.json";
+$handler = fopen($db, 'r');
+$raw = json_decode(fgets($handler));
+fclose($handler);
+
+$indent = 0;
+$videoPath = $videoRoot;
+$base_dir = "base_dir";		// Use same as in listVideos.py
+
+function list_files($tree){
+	global $indent, $videoPath, $base_dir;
+	$myIndent = $indent;
+	$myPath = $videoPath;
+
+	$idt = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $myIndent);
+	foreach ($tree as $key => $val){
+		if ($key == "files"){
+			foreach ($val as $file){
+				$filePath = "$myPath/$file";
+				$filePath = str_replace("$base_dir/", '', $filePath);
+				echo $idt."<a href=\"#$file\" onclick=\"omxPlay('".addslashes($filePath)."')\">$file</a><br />";
+			}
+		} else {
+			echo "<p>".(($key == $base_dir)?'':"<b>${idt}${key}</b><br />");
+			$indent++;
+			$videoPath .= "/$key";
+			list_files($val);
+			echo "</p>";
+		}
+		$videoPath = $myPath;
+		$indent = $myIndent;
+	}
+}
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
@@ -76,19 +113,7 @@
 		<hr />
 
 		<?php
-		$videoRoot = "/home/user/Public/Videos";
-		$db = "./db.json";
-		$handler = fopen($db, 'r');
-		$raw = json_decode(fgets($handler));
-		fclose($handler);
-		foreach ($raw as $path => $files) {
-			echo "<p><h3>$path</h3>";
-			foreach ($files as $file) {
-				$filePath = $videoRoot.$path."/".$file;
-				echo "<a href=\"#$file\" onclick=\"omxPlay('".addslashes($filePath)."')\">$file</a><br />";
-			}
-			echo "</p>";
-		}
+		list_files($raw);
 		?>
 	</div>
 </body>
