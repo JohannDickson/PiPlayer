@@ -52,15 +52,12 @@ function list_files($tree){
 	<script type="text/javascript" src="/js/omx.js"></script>
 	<script type="text/javascript">
 		function toggleChildren(obj){
-			console.log(obj);
 			$(obj).children("ul").each(function(){
-				console.log($(this).css('display'));
 				if ($(this).css('display') == 'none'){
 					$(this).css('display','');
 				} else {
 					$(this).css('display', 'none');
 				}
-				console.log($(this));
 			});
 		}
 	</script>
