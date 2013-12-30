@@ -6,33 +6,36 @@ $handler = fopen($db, 'r');
 $raw = json_decode(fgets($handler));
 fclose($handler);
 
-$indent = 0;
 $videoPath = $videoRoot;
 $base_dir = "base_dir";		// Use same as in listVideos.py
 
 function list_files($tree){
-	global $indent, $videoPath, $base_dir;
-	$myIndent = $indent;
+	global $videoPath, $base_dir;
 	$myPath = $videoPath;
 
-	$idt = str_repeat("&nbsp;&nbsp;&nbsp;&nbsp;", $myIndent);
+	echo "<ul>";
 	foreach ($tree as $key => $val){
+
 		if ($key == "files"){
 			foreach ($val as $file){
 				$filePath = "$myPath/$file";
 				$filePath = str_replace("$base_dir/", '', $filePath);
-				echo $idt."<a href=\"#$file\" onclick=\"omxPlay('".addslashes($filePath)."')\">$file</a><br />";
+				echo "<li class=\"file\"><a href=\"#$file\" onclick=\"omxPlay('".addslashes($filePath)."')\">${file}<br /></a></li>";
 			}
 		} else {
-			echo "<p>".(($key == $base_dir)?'':"<b>${idt}${key}</b><br />");
+			echo "<li class=\"directory\">".
+				  (($key == $base_dir)?'/':"<b>${key}</b>");
+
 			$indent++;
 			$videoPath .= "/$key";
+
 			list_files($val);
-			echo "</p>";
+
+			echo "</li>";
 		}
 		$videoPath = $myPath;
-		$indent = $myIndent;
 	}
+	echo "</ul>";
 }
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
