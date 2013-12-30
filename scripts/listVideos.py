@@ -9,6 +9,7 @@ print "Finding videos..."
 videoDir = "/home/user/Public/Videos"
 lib = OrderedDict()
 base_dir = "base_dir"   # Avoid problems with '_empty_' in PHP
+ignoreExts = [".srt", ".iso"]
 
 for path, dirs, files in os.walk(videoDir):
     relPath = path.replace(videoDir, base_dir)
@@ -31,7 +32,8 @@ for path, dirs, files in os.walk(videoDir):
     if files:
         last_dir['files'] = []
         for f in sorted(files):
-            last_dir['files'].append(f)
+            if os.path.splitext(f)[-1] not in ignoreExts:
+                last_dir['files'].append(f)
 
     # Add dirs to tree
     if dirs:
