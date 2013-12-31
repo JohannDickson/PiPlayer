@@ -60,6 +60,10 @@ function list_files($tree){
 				}
 			});
 		}
+
+		$(document).ready(function(){
+			toggleChildren($(".directory:not(:first)"));
+		});
 	</script>
 
 </head>
