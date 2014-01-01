@@ -27,7 +27,6 @@ function list_files($tree){
 				  "<span onclick=\"toggleChildren($(this).parent())\"><u>+</u></span>&nbsp;".
 				  (($key == $base_dir)?'/':"<b>${key}</b>");
 
-			$indent++;
 			$videoPath .= "/$key";
 
 			list_files($val);
