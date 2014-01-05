@@ -9,7 +9,7 @@ switch($command){
 	case "play":
 		exec('pgrep omxplayer.bin', $pid);
 		if ( empty($pid) ) {
-			$opts = ($hdmi?"-o hdmi":'');
+			$opts = ($hdmi?"-o hdmi":"-o local");
 			$cmd = "omxplayer $opts \"$resource\" < omxFifo &";
 			$launchPlayer = "sleep 1 && echo -n . > omxFifo &";
 			exec($cmd." ".$launchPlayer);
