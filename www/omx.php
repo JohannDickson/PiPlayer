@@ -21,7 +21,8 @@ switch($command){
 				);
 			$cmd = "omxplayer $opts \"$resource\" < omxFifo &";
 			$launchPlayer = "sleep 1 && echo -n . > omxFifo &";
-			exec($cmd." ".$launchPlayer);
+			shell_exec($cmd);
+			shell_exec($launchPlayer);
 			echo "playing: ".$resource;
 		} else {
 			echo "omxplayer is already runnning (".$pid[0].")";
