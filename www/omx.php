@@ -9,10 +9,31 @@ $hdmi = true;
 $noGhostBox = true;
 $backgroundBlank = true;
 
+
+function createFifo(){
+	global $omxFifo;
+	posix_mkfifo($omxFifo, 0644);
+}
+
+function checkFifo(){
+	global $omxFifo;
+	if (file_exists($omxFifo)){
+		system("test -p ${omxFifo}\n", $isFifo);
+		if ($isFifo != 0){
+			unlink($omxFifo);
+			createFifo();
+		}
+	} else {
+		createFifo();
+	}
+}
+
+
 switch($command){
 	case "play":
 		exec('pgrep omxplayer.bin', $pid);
 		if ( empty($pid) ) {
+			checkFifo();
 			$opts = (
 				($hdmi?"-o hdmi":"-o local").
 				' '.
