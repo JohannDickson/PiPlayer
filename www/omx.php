@@ -3,6 +3,8 @@
 $command = $_REQUEST['command'];
 $resource = $_REQUEST['resource'];
 
+$omxFifo = "omxFifo";
+
 $hdmi = true;
 $noGhostBox = true;
 $backgroundBlank = true;
@@ -19,8 +21,8 @@ switch($command){
 				($backgroundBlank?"-b":'').
 				' '
 				);
-			$cmd = "omxplayer $opts \"$resource\" < omxFifo &";
-			$launchPlayer = "sleep 1 && echo -n . > omxFifo &";
+			$cmd = "omxplayer $opts \"$resource\" < ${omxFifo} &";
+			$launchPlayer = "sleep 1 && echo -n . > ${omxFifo} &";
 			shell_exec($cmd);
 			shell_exec($launchPlayer);
 			echo "playing: ".$resource;
@@ -30,35 +32,36 @@ switch($command){
 		break;
 
 	case "pause":
-		exec("echo -n \"p\" > omxFifo");
+		exec("echo -n \"p\" > ${omxFifo}");
 		break;
 
 	case "stop":
-		exec("echo -n \"q\" > omxFifo");
+		exec("echo -n \"q\" > ${omxFifo}");
+		exec("rm ${omxFifo}");
 		break;
 
 	case "vol+":
-		exec("echo -n \"+\" > omxFifo");
+		exec("echo -n \"+\" > ${omxFifo}");
 		break;
 
 	case "vol-":
-		exec("echo -n \"-\" > omxFifo");
+		exec("echo -n \"-\" > ${omxFifo}");
 		break;
 
 	case "t+30":
-		exec("echo -n \"\x1b\x5b\x43\" > omxFifo");
+		exec("echo -n \"\x1b\x5b\x43\" > ${omxFifo}");
 		break;
 
 	case "t-30":
-		exec("echo -n \"\x1b\x5b\x44\" > omxFifo");
+		exec("echo -n \"\x1b\x5b\x44\" > ${omxFifo}");
 		break;
 
 	case "t+600":
-		exec("echo -n \"\x1b\x5b\x41\" > omxFifo");
+		exec("echo -n \"\x1b\x5b\x41\" > ${omxFifo}");
 		break;
 
 	case "t-600":
-		exec("echo -n \"\x1b\x5b\x42\" > omxFifo");
+		exec("echo -n \"\x1b\x5b\x42\" > ${omxFifo}");
 		break;
 
 }
