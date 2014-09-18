@@ -1,3 +1,15 @@
+# PiPlayer
+
 Launch videos on your Raspberry Pi from a web browser
 
-Don't forget to create a named pipe to use in the PHP!
+
+## Setup
+
+Place the contents of 'www' in your web directory
+
+Modify the videoDir and webDir variables in scripts/listVideos.py to reflect your configuration
+
+Make sure the user who executes listVideos.py has the permissions to write in you web directory in order to save the list
+
+Also, the www-data user needs to be part of the group 'video' to be allowed to use omxplayer:
+`usermod -aG video www-data`
