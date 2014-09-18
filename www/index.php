@@ -2,7 +2,7 @@
 
 $db = "./db.json";
 $handler = fopen($db, 'r');
-$raw = json_decode(fgets($handler));
+$raw = json_decode(fgets($handler), true);
 fclose($handler);
 
 
