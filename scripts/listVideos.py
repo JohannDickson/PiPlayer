@@ -4,8 +4,12 @@ import os
 import json
 from collections import OrderedDict
 
+# Change these to match your configuration
 videoDir = "/home/user/Public/Videos"
-webDir   = "/var/www/player/db.json"
+webDir   = "/var/www/player"
+#
+
+dbFile = webDir+"/db.json"    # Same as in www/index.php
 
 print "Finding videos..."
 
@@ -43,7 +47,7 @@ for path, dirs, files in os.walk(videoDir):
             if dd not in last_dir:
                 last_dir[dd] = OrderedDict()
 
-with open(webDir, 'w') as outFile:
+with open(dbFile, 'w') as outFile:
     json.dump(lib, outFile)
 
 print "Done"
