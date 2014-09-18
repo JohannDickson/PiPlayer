@@ -14,18 +14,12 @@ dbFile = webDir+"/db.json"    # Same as in www/index.php
 print "Finding videos..."
 
 lib = OrderedDict()
-base_dir = "base_dir"   # Avoid problems with '_empty_' in PHP
 ignoreExts = [".srt", ".iso"]
 
 for path, dirs, files in os.walk(videoDir):
-    relPath = path.replace(videoDir, base_dir)
-    print relPath
+    print path
 
-    # clean path name
-    if relPath.startswith(os.sep):
-        relPath = relPath[1:]
-
-    tree = relPath.split(os.sep)
+    tree = path.split(os.sep)[1:]
     last_dir = lib
 
     # Make sure path exists in dict

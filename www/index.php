@@ -1,16 +1,14 @@
 <?php
 
-$videoRoot = "/home/user/Public/Videos";
 $db = "./db.json";
 $handler = fopen($db, 'r');
 $raw = json_decode(fgets($handler));
 fclose($handler);
 
-$videoPath = $videoRoot;
-$base_dir = "base_dir";		// Use same as in listVideos.py
 
+$videoPath = '';
 function list_files($tree){
-	global $videoPath, $base_dir;
+	global $videoPath;
 	$myPath = $videoPath;
 
 	echo "<ul>";
@@ -19,13 +17,12 @@ function list_files($tree){
 		if ($key == "files"){
 			foreach ($val as $file){
 				$filePath = "$myPath/$file";
-				$filePath = str_replace("$base_dir/", '', $filePath);
 				echo "<li class=\"file\"><a href=\"#$file\" onclick=\"omxPlay('".addslashes($filePath)."')\">${file}<br /></a></li>";
 			}
 		} else {
 			echo "<li class=\"directory\">".
 				  "<span onclick=\"toggleChildren($(this).parent())\"><u>+</u></span>&nbsp;".
-				  (($key == $base_dir)?'/':"<b>${key}</b>");
+				  "<b>${key}</b>";
 
 			$videoPath .= "/$key";
 
