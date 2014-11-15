@@ -52,6 +52,14 @@ function play($resource){
 }
 
 switch($command){
+	case "stream":
+		echo "Streaming resource ${resource}";
+		$cmd = "youtube-dl -g ${resource}";
+		$stream_url = exec($cmd);
+		echo "STREAM: ${stream_url}";
+		play($stream_url);
+		break;
+
 	case "play":
 		play($resource);
 		break;

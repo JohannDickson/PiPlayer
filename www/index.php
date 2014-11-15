@@ -100,6 +100,12 @@ function list_files($tree){
 			<img src="img/ffwd.png" class="invert vertCenter"/>
 			t+600
 		</a>
+
+		<form action="omx.php" method="GET" class="omxCmd">
+			<input type="hidden" name="command" value="stream"></input>
+			<input type="text" name="resource"></input>
+			<input type="submit"></input>
+		</form>
 	</div>
 
 	<div id="content">
