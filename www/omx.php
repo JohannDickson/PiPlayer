@@ -28,27 +28,40 @@ function checkFifo(){
 	}
 }
 
+function play($resource){
+	global $omxFifo, $hdmi, $noGhostBox, $backgroundBlank;
+
+	exec('pgrep omxplayer.bin', $pid);
+	if ( empty($pid) ) {
+		checkFifo();
+		$opts = (
+			($hdmi?"-o hdmi":"-o local").
+			' '.
+			($noGhostBox?"--no-ghost-box":'').
+			' '.
+			($backgroundBlank?"-b":'').
+			' '
+			);
+		$cmd = "omxplayer ${opts} \"${resource}\" < ${omxFifo} &";
+		$launchPlayer = "sleep 1 && echo -n . > ${omxFifo} &";
+		exec($cmd." ".$launchPlayer);
+		echo "playing: ".$resource;
+	} else {
+		echo "omxplayer is already runnning (".$pid[0].")";
+	}
+}
 
 switch($command){
+	case "stream":
+		echo "Streaming resource ${resource}";
+		$cmd = "youtube-dl -g ${resource}";
+		$stream_url = exec($cmd);
+		echo "STREAM: ${stream_url}";
+		play($stream_url);
+		break;
+
 	case "play":
-		exec('pgrep omxplayer.bin', $pid);
-		if ( empty($pid) ) {
-			checkFifo();
-			$opts = (
-				($hdmi?"-o hdmi":"-o local").
-				' '.
-				($noGhostBox?"--no-ghost-box":'').
-				' '.
-				($backgroundBlank?"-b":'').
-				' '
-				);
-			$cmd = "omxplayer ${opts} \"${resource}\" < ${omxFifo} &";
-			$launchPlayer = "sleep 1 && echo -n . > ${omxFifo} &";
-			exec($cmd." ".$launchPlayer);
-			echo "playing: ".$resource;
-		} else {
-			echo "omxplayer is already runnning (".$pid[0].")";
-		}
+		play($resource);
 		break;
 
 	case "pause":
