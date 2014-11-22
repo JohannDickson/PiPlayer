@@ -59,6 +59,20 @@ function list_files($tree){
 
 		$(document).ready(function(){
 			toggleChildren($(".directory:not(:first)"));
+
+			// Prevent streaming from loading page
+			$('#stream_form').on("submit", function(e){
+				e.preventDefault();
+
+				form = $(this);
+				f = form.context;
+
+				$.ajax({
+					url: f.action,
+					method: f.method,
+					data: form.serialize(),
+				});
+			});
 		});
 	</script>
 
@@ -101,10 +115,10 @@ function list_files($tree){
 			t+600
 		</a>
 
-		<form action="omx.php" method="GET" class="omxCmd">
+		<form id="stream_form" action="omx.php" method="GET" class="omxCmd">
 			<input type="hidden" name="command" value="stream"></input>
 			<input type="text" name="resource"></input>
-			<input type="submit"></input>
+			<input type="submit" value="Stream" />
 		</form>
 	</div>
 
